@@ -1,18 +1,9 @@
 import 'package:get/get.dart';
+import 'package:kobe_code_challenge/controllers/base_controller.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
 import 'package:kobe_code_challenge/models/paginated_movies.dart';
 
-enum ControllerStatus { busy, ready, error }
-
-abstract class PaginatedMoviesBaseController extends GetxController {
-  final Rx<ControllerStatus> status = Rx<ControllerStatus>(
-    ControllerStatus.ready,
-  );
-
-  bool get isReady => status.value == ControllerStatus.ready;
-  bool get isBusy => status.value == ControllerStatus.busy;
-  bool get hasError => status.value == ControllerStatus.error;
-
+abstract class PaginatedMoviesBaseController extends BaseController {
   final RxList<Movie> movies = RxList<Movie>([]);
   final RxInt page = 1.obs;
   final RxBool hasMorePages = true.obs;
