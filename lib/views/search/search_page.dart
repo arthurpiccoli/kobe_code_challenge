@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kobe_code_challenge/controllers/search_movies_controller.dart';
-import 'package:kobe_code_challenge/models/movie.dart';
-import 'package:kobe_code_challenge/views/widgets/movie_card.dart';
+import 'package:kobe_code_challenge/views/widgets/movie_cards_list_view.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
   final searchMoviesController = Get.put(SearchMoviesController());
-  final textEditingController = TextEditingController(); //TODO dispose
+  final textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +24,8 @@ class SearchPage extends StatelessWidget {
       ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
-        child: Obx(
-          () => ListView.builder(
-            itemCount: searchMoviesController.movies.length,
-            itemBuilder: _cardBuilder,
-          ),
+        child: MovieCardsListView(
+          moviesController: searchMoviesController,
         ),
       ),
     );
@@ -35,21 +36,9 @@ class SearchPage extends StatelessWidget {
     if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
   }
 
-  Widget _cardBuilder(BuildContext context, int index) {
-    Movie movie = searchMoviesController.movies[index];
-
-    if (movie == searchMoviesController.movies.last) {
-      return Column(
-        children: [
-          MovieCard(movie),
-          FlatButton(
-            onPressed: searchMoviesController.fetchMovies,
-            child: Text("..."),
-          ),
-        ],
-      );
-    }
-
-    return MovieCard(movie);
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
   }
 }
