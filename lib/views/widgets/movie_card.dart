@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kobe_code_challenge/constants/endpoints.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
 import 'package:kobe_code_challenge/views/widgets/gradient_container.dart';
+import 'package:kobe_code_challenge/utils/date_formatter.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
@@ -70,7 +71,8 @@ class MovieCard extends StatelessWidget {
       bottom: 0,
       left: 0,
       child: GradientContainer(
-        child: Text("${movie.releaseDate} | ${movie.genreIds}"),
+        child: Text(
+            "${movie.releaseDate.toShortDateString()} | ${movie.genreIds}"),
         reverse: true,
       ),
     );

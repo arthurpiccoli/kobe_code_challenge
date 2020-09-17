@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kobe_code_challenge/constants/endpoints.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
 import 'package:kobe_code_challenge/views/movie_details/widgets/movie_details_app_bar.dart';
+import 'package:kobe_code_challenge/utils/date_formatter.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie = Get.arguments;
@@ -46,7 +47,7 @@ class MovieDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Release date:\n${movie.releaseDate}"),
+                Text("Release date:\n${movie.releaseDate.toShortDateString()}"),
                 Divider(),
                 Text("Genres:\n${movie.genreIds}")
               ],
