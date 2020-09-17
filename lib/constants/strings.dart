@@ -1,4 +1,5 @@
 abstract class Strings {
+  static const String appName = "What to Watch";
   static const String upcomingMovies = "Upcoming Movies";
   static const String retry = "RETRY";
   static const String search = "Search movies...";

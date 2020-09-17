@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kobe_code_challenge/constants/strings.dart';
 import 'package:kobe_code_challenge/routes/get_pages.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(WhatToWatchApp());
 }
 
-class MyApp extends StatelessWidget {
+class WhatToWatchApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: Strings.appName,
       theme: ThemeData.dark().copyWith(
         accentColor: Colors.yellow,
         buttonTheme: ButtonThemeData(
