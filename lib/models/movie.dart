@@ -12,7 +12,7 @@ class Movie {
   final String title;
   final num voteAverage;
   final String overview;
-  final String releaseDate;
+  final DateTime releaseDate;
 
   Movie({
     this.popularity,
@@ -46,7 +46,7 @@ class Movie {
       title: json["title"],
       voteAverage: json["vote_average"],
       overview: json["overview"],
-      releaseDate: json["release_date"],
+      releaseDate: DateTime.tryParse(json["release_date"]),
     );
   }
 }
