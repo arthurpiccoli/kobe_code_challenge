@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kobe_code_challenge/constants/asset_names.dart';
 import 'package:kobe_code_challenge/constants/strings.dart';
 import 'package:kobe_code_challenge/controllers/genres_controller.dart';
 import 'package:kobe_code_challenge/controllers/upcoming_movies_controller.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
-          "assets/images/logo.png",
+          AssetNames.logo,
           height: 24,
         ),
         actions: [
