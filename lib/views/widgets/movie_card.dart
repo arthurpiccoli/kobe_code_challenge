@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kobe_code_challenge/constants/endpoints.dart';
 import 'package:kobe_code_challenge/controllers/genres_controller.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
+import 'package:kobe_code_challenge/routes/route_names.dart';
 import 'package:kobe_code_challenge/views/widgets/gradient_container.dart';
 import 'package:kobe_code_challenge/utils/date_formatter.dart';
 
@@ -54,7 +55,7 @@ class MovieCard extends StatelessWidget {
     return Container(
       height: 200,
       child: InkWell(
-        onTap: () => Get.toNamed("/details", arguments: movie),
+        onTap: () => Get.toNamed(RouteNames.details, arguments: movie),
       ),
     );
   }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kobe_code_challenge/views/home/home_page.dart';
-import 'package:kobe_code_challenge/views/movie_details/movie_details_page.dart';
-import 'package:kobe_code_challenge/views/search/search_page.dart';
+import 'package:kobe_code_challenge/routes/get_pages.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,11 +16,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow),
         ),
       ),
-      getPages: [
-        GetPage(name: "/", page: () => HomePage()),
-        GetPage(name: "/details", page: () => MovieDetailsPage()),
-        GetPage(name: "/search", page: () => SearchPage()),
-      ],
+      getPages: getPages,
     );
   }
 }

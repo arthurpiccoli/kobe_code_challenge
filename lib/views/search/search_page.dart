@@ -9,7 +9,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final searchMoviesController = Get.put(SearchMoviesController());
+  final searchMoviesController = Get.find<SearchMoviesController>();
   final textEditingController = TextEditingController();
 
   @override
