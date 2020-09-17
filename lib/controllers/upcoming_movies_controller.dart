@@ -1,35 +1,21 @@
-import 'package:get/get.dart';
+import 'package:kobe_code_challenge/controllers/paginated_movies_base_controller.dart';
 import 'package:kobe_code_challenge/data/repository.dart';
-import 'package:kobe_code_challenge/models/movie.dart';
 import 'package:kobe_code_challenge/models/paginated_movies.dart';
 import 'package:kobe_code_challenge/utils/error_snackbar.dart';
 
-class UpcomingMoviesController extends GetxController {
-  final RxList<Movie> movies = RxList<Movie>([]);
-  final RxInt page = 1.obs;
-  final RxBool hasMorePages = true.obs;
-
+class UpcomingMoviesController extends PaginatedMoviesBaseController {
   @override
   void onInit() {
     fetchMovies();
   }
 
-  fetchMovies() async {
-    if (!hasMorePages.value) return;
+  @override
+  Future<PaginatedMovies> getPaginatedMoviesFromRepository() {
+    return Repository.getUpcomingMovies(page: page.value);
+  }
 
-    try {
-      PaginatedMovies paginatedMovies = await Repository.getUpcomingMovies(
-        page: page.value,
-      );
-
-      movies.addAll(paginatedMovies.results);
-      if (paginatedMovies.page < paginatedMovies.totalPages) {
-        page.value++;
-      } else {
-        hasMorePages.value = false;
-      }
-    } catch (error) {
-      showErrorSnackbar(error);
-    }
+  @override
+  void handleError(error) {
+    showErrorSnackbar(error);
   }
 }
