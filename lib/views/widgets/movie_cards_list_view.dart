@@ -7,7 +7,12 @@ import 'package:kobe_code_challenge/views/widgets/status_indicator.dart';
 
 class MovieCardsListView extends StatefulWidget {
   final PaginatedMoviesBaseController moviesController;
-  MovieCardsListView({@required this.moviesController});
+  final String listTitle;
+
+  MovieCardsListView({
+    @required this.moviesController,
+    this.listTitle,
+  });
 
   @override
   _MovieCardsListViewState createState() => _MovieCardsListViewState();
@@ -54,20 +59,62 @@ class _MovieCardsListViewState extends State<MovieCardsListView> {
   Widget _cardBuilder(BuildContext context, int index) {
     Movie movie = widget.moviesController.movies[index];
 
+    bool shouldShowListTitle = movie == widget.moviesController.movies.first &&
+        widget.listTitle != null;
+
+    if (shouldShowListTitle) {
+      return _buildMovieCardWithListTitle(movie);
+    }
+
     bool shouldShowStatusIndicator =
         movie == widget.moviesController.movies.last &&
             widget.moviesController.hasMorePages.value;
 
     if (shouldShowStatusIndicator) {
-      return Column(
-        children: [
-          MovieCard(movie),
-          Obx(() => _buildStatusIndicator()),
-        ],
-      );
+      return _buildMovieCardWithStatusIndicator(movie);
     }
 
     return MovieCard(movie);
+  }
+
+  _buildMovieCardWithListTitle(Movie movie) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildListTitle(),
+        MovieCard(movie),
+      ],
+    );
+  }
+
+  _buildListTitle() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "| ",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Get.theme.accentColor,
+              ),
+            ),
+            TextSpan(text: widget.listTitle)
+          ],
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+    );
+  }
+
+  _buildMovieCardWithStatusIndicator(Movie movie) {
+    return Column(
+      children: [
+        MovieCard(movie),
+        Obx(() => _buildStatusIndicator()),
+      ],
+    );
   }
 
   _buildStatusIndicator() {
