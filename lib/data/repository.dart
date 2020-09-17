@@ -13,32 +13,22 @@ abstract class Repository {
     ),
   );
 
-  static Future<PaginatedMovies> upcomingMovies({int page}) async {
-    try {
-      Response response = await _dio.get(
-        Endpoints.upcomingMovies,
-        queryParameters: {"page": page},
-      );
-      return PaginatedMovies.fromJson(response.data);
-    } on DioError catch (error) {
-      print(error);
-      return null; //TODO
-    }
+  static Future<PaginatedMovies> getUpcomingMovies({int page}) async {
+    Response response = await _dio.get(
+      Endpoints.upcomingMovies,
+      queryParameters: {"page": page},
+    );
+    return PaginatedMovies.fromJson(response.data);
   }
 
   static Future<PaginatedMovies> searchMovies({String query, int page}) async {
-    try {
-      Response response = await _dio.get(
-        Endpoints.searchMovies,
-        queryParameters: {
-          "query": query,
-          "page": page,
-        },
-      );
-      return PaginatedMovies.fromJson(response.data);
-    } on DioError catch (error) {
-      print(error);
-      return null; //TODO
-    }
+    Response response = await _dio.get(
+      Endpoints.searchMovies,
+      queryParameters: {
+        "query": query,
+        "page": page,
+      },
+    );
+    return PaginatedMovies.fromJson(response.data);
   }
 }
