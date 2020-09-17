@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kobe_code_challenge/constants/endpoints.dart';
 import 'package:kobe_code_challenge/controllers/search_movies_controller.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
+import 'package:kobe_code_challenge/views/widgets/movie_card.dart';
 
 class SearchPage extends StatelessWidget {
   final searchMoviesController = Get.put(SearchMoviesController());
@@ -14,42 +14,34 @@ class SearchPage extends StatelessWidget {
       appBar: AppBar(
         title: TextField(
           controller: textEditingController,
-          onSubmitted: searchMoviesController.search,
+          onChanged: searchMoviesController.search,
+          autofocus: true,
         ),
-        actions: [
-          FlatButton(
-            onPressed: () =>
-                searchMoviesController.search(textEditingController.text),
-            child: Icon(Icons.search),
-          )
-        ],
       ),
-      body: Obx(
-        () => ListView.builder(
-          itemCount: searchMoviesController.movies.length,
-          itemBuilder: _tileBuilder,
+      body: GestureDetector(
+        onTap: () => dismissKeyboard(context),
+        child: Obx(
+          () => ListView.builder(
+            itemCount: searchMoviesController.movies.length,
+            itemBuilder: _cardBuilder,
+          ),
         ),
       ),
     );
   }
 
-  Widget _tileBuilder(BuildContext context, int index) {
-    Movie movie = searchMoviesController.movies[index];
+  void dismissKeyboard(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+  }
 
-    Widget tile = ListTile(
-      leading: movie.posterPath != null
-          ? Image(
-              image: NetworkImage(Endpoints.posterUrl + movie.posterPath),
-            )
-          : Container(),
-      title: Text(movie.title),
-      onTap: () => Get.toNamed("/details", arguments: movie),
-    );
+  Widget _cardBuilder(BuildContext context, int index) {
+    Movie movie = searchMoviesController.movies[index];
 
     if (movie == searchMoviesController.movies.last) {
       return Column(
         children: [
-          tile,
+          MovieCard(movie),
           FlatButton(
             onPressed: searchMoviesController.fetchMovies,
             child: Text("..."),
@@ -58,6 +50,6 @@ class SearchPage extends StatelessWidget {
       );
     }
 
-    return tile;
+    return MovieCard(movie);
   }
 }

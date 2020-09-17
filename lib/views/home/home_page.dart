@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kobe_code_challenge/constants/endpoints.dart';
 import 'package:kobe_code_challenge/controllers/upcoming_movies_controller.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
+import 'package:kobe_code_challenge/views/widgets/movie_card.dart';
+import 'package:kobe_code_challenge/views/widgets/rounded_flat_button.dart';
 
 class HomePage extends StatelessWidget {
   final upcomingMoviesController = Get.put(UpcomingMoviesController());
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          FlatButton(
+          RoundedFlatButton(
             onPressed: () => Get.toNamed("/search"),
             child: Icon(Icons.search),
           )
@@ -21,29 +22,19 @@ class HomePage extends StatelessWidget {
       body: Obx(
         () => ListView.builder(
           itemCount: upcomingMoviesController.movies.length,
-          itemBuilder: _tileBuilder,
+          itemBuilder: _cardBuilder,
         ),
       ),
     );
   }
 
-  Widget _tileBuilder(BuildContext context, int index) {
+  Widget _cardBuilder(BuildContext context, int index) {
     Movie movie = upcomingMoviesController.movies[index];
-
-    Widget tile = ListTile(
-      leading: movie.posterPath != null
-          ? Image(
-              image: NetworkImage(Endpoints.posterUrl + movie.posterPath),
-            )
-          : Container(),
-      title: Text(movie.title),
-      onTap: () => Get.toNamed("/details", arguments: movie),
-    );
 
     if (movie == upcomingMoviesController.movies.last) {
       return Column(
         children: [
-          tile,
+          MovieCard(movie),
           FlatButton(
             onPressed: upcomingMoviesController.fetchMovies,
             child: Text("..."),
@@ -52,6 +43,6 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    return tile;
+    return MovieCard(movie);
   }
 }
