@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:kobe_code_challenge/constants/credentials.dart';
 import 'package:kobe_code_challenge/constants/endpoints.dart';
+import 'package:kobe_code_challenge/models/genre.dart';
 import 'package:kobe_code_challenge/models/paginated_movies.dart';
 
 abstract class Repository {
@@ -30,5 +31,16 @@ abstract class Repository {
       },
     );
     return PaginatedMovies.fromJson(response.data);
+  }
+
+  static Future<List<Genre>> getMovieGenres() async {
+    Response response = await _dio.get(Endpoints.movieGenres);
+
+    List<Genre> genres = [];
+    response.data["genres"].forEach(
+      (genreJson) => genres.add(Genre.fromJson(genreJson)),
+    );
+
+    return genres;
   }
 }
