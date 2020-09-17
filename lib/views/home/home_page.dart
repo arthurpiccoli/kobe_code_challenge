@@ -13,6 +13,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Image.asset(
+          "assets/images/logo.png",
+          height: 24,
+        ),
         actions: [
           RoundedFlatButton(
             onPressed: () => Get.toNamed("/search"),
@@ -22,6 +26,7 @@ class HomePage extends StatelessWidget {
       ),
       body: MovieCardsListView(
         moviesController: upcomingMoviesController,
+        listTitle: "Upcoming Movies",
       ),
     );
   }
