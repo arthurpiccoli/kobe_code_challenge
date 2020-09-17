@@ -12,7 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData.dark().copyWith(accentColor: Colors.yellow),
+      theme: ThemeData.dark().copyWith(
+        accentColor: Colors.yellow,
+        buttonTheme: ButtonThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow),
+        ),
+      ),
       getPages: [
         GetPage(name: "/", page: () => HomePage()),
         GetPage(name: "/details", page: () => MovieDetailsPage()),
