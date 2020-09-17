@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kobe_code_challenge/constants/strings.dart';
 import 'package:kobe_code_challenge/controllers/search_movies_controller.dart';
 import 'package:kobe_code_challenge/views/widgets/movie_cards_list_view.dart';
 
@@ -19,6 +20,8 @@ class _SearchPageState extends State<SearchPage> {
         title: TextField(
           controller: textEditingController,
           onChanged: searchMoviesController.search,
+          cursorColor: Get.theme.accentColor,
+          decoration: InputDecoration(hintText: Strings.search),
           autofocus: true,
         ),
       ),

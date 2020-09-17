@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kobe_code_challenge/constants/strings.dart';
 
 class StatusIndicator extends StatelessWidget {
   final bool hasError;
@@ -15,7 +16,7 @@ class StatusIndicator extends StatelessWidget {
       child: hasError
           ? RaisedButton(
               onPressed: errorCallback,
-              child: Text("RETRY"),
+              child: Text(Strings.retry),
             )
           : Padding(
               padding: EdgeInsets.all(10),

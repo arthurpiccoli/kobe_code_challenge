@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kobe_code_challenge/constants/endpoints.dart';
+import 'package:kobe_code_challenge/constants/strings.dart';
 import 'package:kobe_code_challenge/controllers/genres_controller.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
 import 'package:kobe_code_challenge/routes/route_names.dart';
@@ -86,6 +87,9 @@ class MovieCard extends StatelessWidget {
   _formatGenreNames() {
     List<String> genreNames = Get.find<GenresController>()
         .mapMovieGenreIdsToGenreNames(movie.genreIds);
+
+    if (genreNames.isEmpty) return Strings.unclassificated;
+
     return genreNames.reduce((value, element) => value + ', ' + element);
   }
 }

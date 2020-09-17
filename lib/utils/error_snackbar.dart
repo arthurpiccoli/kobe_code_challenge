@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kobe_code_challenge/constants/strings.dart';
 
 void showErrorSnackbar(dynamic error) => Get.snackbar(
-      "Oops, an error has ocurred!",
+      Strings.error,
       error.toString(),
       colorText: Colors.black,
       backgroundColor: Get.theme.accentColor,

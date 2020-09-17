@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kobe_code_challenge/constants/endpoints.dart';
+import 'package:kobe_code_challenge/constants/strings.dart';
 import 'package:kobe_code_challenge/controllers/genres_controller.dart';
 import 'package:kobe_code_challenge/models/movie.dart';
 import 'package:kobe_code_challenge/utils/date_formatter.dart';
@@ -47,10 +48,10 @@ class MovieDetailsListView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildTitleText("Release date"),
+          _buildTitleText(Strings.releaseDate),
           _buildInfoText("${movie.releaseDate.toShortDateString()}"),
           Divider(),
-          _buildTitleText("Genres"),
+          _buildTitleText(Strings.genres),
           _buildInfoText("${_formatGenreNames()}")
         ],
       ),
@@ -77,6 +78,9 @@ class MovieDetailsListView extends StatelessWidget {
   _formatGenreNames() {
     List<String> genreNames = Get.find<GenresController>()
         .mapMovieGenreIdsToGenreNames(movie.genreIds);
+
+    if (genreNames.isEmpty) return Strings.unclassificated;
+
     return genreNames.reduce((value, element) => value + '\n' + element);
   }
 }
