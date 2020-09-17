@@ -13,27 +13,35 @@ class MovieDetailsAppBar extends StatelessWidget {
       expandedHeight: 200.0,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text(movie.title),
+        titlePadding: EdgeInsets.only(
+          left: 72,
+          right: 10,
+          bottom: 16,
+        ),
+        title: Text(
+          movie.title,
+        ),
         background: _buildBackground(),
       ),
     );
   }
 
   _buildBackground() {
-    if (movie.backdropPath == null) {
+    String imagePath = movie.backdropPath ?? movie.posterPath;
+    if (imagePath == null) {
       return GradientContainer(reverse: true);
     }
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        _buildBackgroundImage(),
+        _buildBackgroundImage(imagePath),
         GradientContainer(reverse: true),
       ],
     );
   }
 
-  _buildBackgroundImage() {
+  _buildBackgroundImage(String imagePath) {
     return Hero(
       flightShuttleBuilder: (
         flightContext,
@@ -46,7 +54,7 @@ class MovieDetailsAppBar extends StatelessWidget {
       },
       tag: "background_${movie.id}",
       child: Image.network(
-        Endpoints.backdropUrl + movie.backdropPath,
+        Endpoints.backdropUrl + imagePath,
         fit: BoxFit.cover,
       ),
     );
