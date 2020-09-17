@@ -43,6 +43,7 @@ class _MovieCardsListViewState extends State<MovieCardsListView> {
               ? Container()
               : _buildStatusIndicator()
           : ListView.builder(
+              padding: EdgeInsets.symmetric(vertical: 5),
               controller: scrollController,
               itemCount: widget.moviesController.movies.length,
               itemBuilder: _cardBuilder,
