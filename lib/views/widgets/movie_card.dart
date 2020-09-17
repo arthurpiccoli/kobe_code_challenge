@@ -12,49 +12,50 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath = movie.backdropPath ?? movie.posterPath;
+
     return Card(
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       shape: ContinuousRectangleBorder(),
       child: Stack(
         children: [
-          _buildbackgroundImage(),
+          if (imagePath != null) _buildbackgroundImage(imagePath),
           _buildTitle(),
           _buildInfo(),
+          _buildInkWell(),
         ],
       ),
     );
   }
 
-  _buildbackgroundImage() {
-    String imagePath = movie.backdropPath ?? movie.posterPath;
+  _buildbackgroundImage(String imagePath) {
     return Container(
       height: 200,
-      decoration: BoxDecoration(),
-      child: imagePath != null
-          ? Hero(
-              flightShuttleBuilder: (
-                flightContext,
-                animation,
-                flightDirection,
-                fromHeroContext,
-                toHeroContext,
-              ) {
-                return fromHeroContext.widget;
-              },
-              tag: "background_${movie.id}",
-              child: Ink.image(
-                image: NetworkImage(Endpoints.backdropUrl + imagePath),
-                fit: BoxFit.cover,
-                child: _buildInkWell(),
-              ),
-            )
-          : _buildInkWell(),
+      child: Hero(
+        flightShuttleBuilder: (
+          flightContext,
+          animation,
+          flightDirection,
+          fromHeroContext,
+          toHeroContext,
+        ) {
+          return fromHeroContext.widget;
+        },
+        tag: "background_${movie.id}",
+        child: Ink.image(
+          image: NetworkImage(Endpoints.backdropUrl + imagePath),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 
   _buildInkWell() {
-    return InkWell(
-      onTap: () => Get.toNamed("/details", arguments: movie),
+    return Container(
+      height: 200,
+      child: InkWell(
+        onTap: () => Get.toNamed("/details", arguments: movie),
+      ),
     );
   }
 
