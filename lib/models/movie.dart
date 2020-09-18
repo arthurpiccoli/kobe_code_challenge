@@ -46,7 +46,9 @@ class Movie {
       title: json["title"],
       voteAverage: json["vote_average"],
       overview: json["overview"],
-      releaseDate: DateTime.tryParse(json["release_date"]),
+      releaseDate: json["release_date"] != null
+          ? DateTime.tryParse(json["release_date"])
+          : null,
     );
   }
 }
