@@ -1,16 +1,16 @@
-# kobe_code_challenge
+# Kobe Code Challenge
 
-A new Flutter project.
+What to Watch App.
 
-## Getting Started
+# Build Instructions
 
-This project is a starting point for a Flutter application.
+No special build instructions are required. Just the default ones:
+flutter pub get
+flutter run
 
-A few resources to get you started if this is your first Flutter project:
+# Third-party Libraries
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Dio: package to handle HTTP requests, used to connect to the API.
+GetX: used to state management, dependency injection and route management.
+Flutter Icons: used to generate iOS and Android icons.
+Flutter Native Splash: used to generate iOS and Android splash screens.
