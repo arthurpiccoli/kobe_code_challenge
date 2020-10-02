@@ -7,4 +7,5 @@ abstract class Strings {
   static const String genres = "Genres";
   static const String error = "Oops, an error has ocurred!";
   static const String unclassificated = "Unclassificated";
+  static const String undefined = "Undefined";
 }
